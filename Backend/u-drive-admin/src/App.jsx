@@ -11,10 +11,9 @@ import { Dashboard } from './Dashboard';
 import { BlogList, BlogEdit, BlogCreate } from './Blogs';
 import { CourseSettingsEdit } from './CourseSettings';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
+import { TeamList, TeamEdit, TeamCreate } from './TeamManagement';
+import PeopleIcon from '@mui/icons-material/People';
 
-// ==========================================
-// 💅 THE SNEAKY MODERN SAAS THEME DEFINITION
-// ==========================================
 // ==========================================
 // 🚀 PREMIUM GRAPHICS ENGINE THEME CONFIGURATION
 // ==========================================
@@ -68,7 +67,7 @@ const modernDarkTheme = createTheme({
                 root: {
                     backgroundColor: '#161925',
                     borderRight: '1px solid rgba(255, 255, 255, 0.04)',
-                    '& .RaMenuItemLink-root': {
+                    '& .RaMenuItemLink-root': { 
                         borderRadius: '10px',
                         margin: '4px 12px',
                         padding: '10px 16px',
@@ -181,7 +180,7 @@ const modernDarkTheme = createTheme({
     },
 });
 
-// 1. Authenticated HTTP Client
+// 1. Authenticated HTTP Client Setup
 const httpClient = (url, options = {}) => {
     if (!options.headers) options.headers = new Headers({ Accept: 'application/json' });
     const token = localStorage.getItem('adminToken');
@@ -189,9 +188,43 @@ const httpClient = (url, options = {}) => {
     return fetchUtils.fetchJson(url, options);
 };
 
-const dataProvider = simpleRestProvider('http://localhost:5000/api', httpClient);
+// 💡 2. CORE BACKEND INJECTOR: REST BASE DATA INTERFACE WITH MONGODB '_id' ADAPTER
+const baseDataProvider = simpleRestProvider('http://localhost:5000/api', httpClient);
 
-// 2. Auth Provider Setup
+const dataProvider = {
+    ...baseDataProvider,
+    getList: (resource, params) => 
+        baseDataProvider.getList(resource, params).then(({ data, total }) => ({
+            data: data.map(record => ({ id: record._id || record.id, ...record })),
+            total
+        })),
+    getOne: (resource, params) => 
+        baseDataProvider.getOne(resource, params).then(({ data }) => ({
+            data: { id: data._id || data.id, ...data }
+        })),
+    
+    // 🛠️ FIXED UPDATE METHOD: Explicitly attaches React-Admin's unique tracking identifier
+    // down into MongoDB's native '_id' property payload object structure before dispatching
+    update: (resource, params) => {
+        const payloadWithMongoId = { 
+            ...params.data, 
+            _id: params.id 
+        };
+        return baseDataProvider.update(resource, { 
+            ...params, 
+            data: payloadWithMongoId 
+        }).then(({ data }) => ({
+            data: { id: data._id || data.id, ...data }
+        }));
+    },
+
+    create: (resource, params) => 
+        baseDataProvider.create(resource, params).then(({ data }) => ({
+            data: { id: data._id || data.id, ...data }
+        })),
+};
+
+// 3. Auth Provider Setup
 const authProvider = {
     login: ({ username, password }) => {
         return fetch('http://localhost:5000/api/login', {
@@ -235,7 +268,7 @@ const authProvider = {
     },
 };
 
-// 3. Custom Login Page
+// 4. Custom Login Page Component
 const CustomLoginPage = () => {
     const login = useLogin();
     const notify = useNotify();
@@ -337,7 +370,7 @@ const CustomLoginPage = () => {
     );
 };
 
-// 4. Main App Component
+// 5. Main App Component
 function App() {
     return (
         <Admin 
@@ -345,7 +378,7 @@ function App() {
             authProvider={authProvider} 
             loginPage={CustomLoginPage} 
             dashboard={Dashboard}
-            theme={modernDarkTheme} // 💡 INJECTS THE PREMIUM CUSTOM DARK GRAPHICS ENGINE HERE
+            theme={modernDarkTheme}
         >
             {permissions => [
                 permissions === 'admin' ? (
@@ -360,14 +393,31 @@ function App() {
                 <Resource key="packages" name="packages" list={PackageList} edit={PackageEdit} create={PackageCreate} />,
                 <Resource key="courses" name="courses" list={CourseList} edit={CourseEdit} create={CourseCreate} />,
                 <Resource key="bookings" name="bookings" list={BookingList} options={{ label: 'Student Applications' }} />,
-                <Resource key="blogs" name="blogs" list={BlogList} edit={BlogEdit} create={BlogCreate} options={{ label: 'Blog Posts' }} />,
                 <Resource key="contacts" name="contacts" list={ListGuesser} options={{ label: 'Enquiries' }} />,
                 <Resource 
                     name="page-settings/standard-course" 
                     list={CourseSettingsEdit} 
                     icon={SettingsAccessibilityIcon}
                     options={{ label: 'Standard Page Setup' }}
-                />
+                />,
+                <Resource 
+                    key="blogs" 
+                    name="blogs" 
+                    list={BlogList} 
+                    edit={BlogEdit} 
+                    create={BlogCreate} 
+                    options={{ label: 'Blog Posts' }} 
+                />,
+                <Resource 
+    key="team" 
+    name="team" 
+    list={TeamList} 
+    edit={TeamEdit} 
+    create={TeamCreate} 
+    icon={PeopleIcon}
+    options={{ label: 'Manage Team' }} 
+/>
+                
             ].filter(Boolean)} 
         </Admin>
     );

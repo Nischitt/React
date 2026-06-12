@@ -12,13 +12,26 @@ export default function Blog() {
   useEffect(() => {
     setLoading(true);
     
-    // FIXED: Changed endpoint path to point to /api/blogs/paginated
+    // Fetching data from your paginated API endpoint
     fetch(`http://localhost:5000/api/blogs?page=${currentPage}&limit=${postsPerPage}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
       .then((data) => {
-        // Now accurately extracts variables from the paginated object wrapper
-        setBlogPosts(data.blogs || []);
-        setTotalPages(data.totalPages || 1);
+        // Safe check: handles if data is wrapped in an object or sent directly as an array
+        if (data && data.blogs) {
+          setBlogPosts(data.blogs);
+          setTotalPages(data.totalPages || 1);
+        } else if (Array.isArray(data)) {
+          setBlogPosts(data);
+          setTotalPages(1);
+        } else if (data && data.data) {
+          setBlogPosts(data.data);
+          setTotalPages(data.totalPages || 1);
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -79,7 +92,8 @@ export default function Blog() {
               </div>
             ) : (
               blogPosts.map((post) => (
-                <article key={post.id} className="group border-b border-gray-100 pb-12 last:border-0 last:pb-0">
+                /* ⚙️ FIX 1: Map key checks for database _id or fallback id */
+                <article key={post._id || post.id} className="group border-b border-gray-100 pb-12 last:border-0 last:pb-0">
                   <div className="relative w-full aspect-[16/9] bg-gray-100 rounded-xs overflow-hidden mb-6 border border-gray-100">
                     <img 
                       src={post.image || "src/images/5.jpg"} 
@@ -87,7 +101,8 @@ export default function Blog() {
                       className="w-full h-full object-cover group-hover:scale-102 transition duration-500"
                     />
                     <div className="absolute top-0 left-0 bg-yellow-500 text-slate-950 px-4 py-2 text-center font-bold text-xs uppercase tracking-tight">
-                      {post.date ? new Date(post.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) : "Recent"}
+                      {/* ⚙️ FIX 2: Swapped post.date out for post.publishedDate to align keys */}
+                      {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) : "Recent"}
                     </div>
                   </div>
 
@@ -126,7 +141,7 @@ export default function Blog() {
                   ‹
                 </button>
 
-                {/* Generate dynamic numbering layout matches depending on record array scale lengths */}
+                {/* Generate dynamic numbering layout */}
                 {Array.from({ length: totalPages }, (_, index) => {
                   const pageNum = index + 1;
                   const isActive = pageNum === currentPage;

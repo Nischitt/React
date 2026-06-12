@@ -28,31 +28,41 @@ export const BlogList = (props) => (
 
 // 2. CREATE VIEW: Form to add new posts
 export const BlogCreate = (props) => (
-    <Create {...props} redirect="list">
+    <Create {...props}>
         <SimpleForm>
-            <TextInput source="title" fullWidth required />
+            <TextInput source="title" fullWidth />
             <TextInput source="author" defaultValue="Isaac Herman" />
             <TextInput source="category" defaultValue="Driving Course" />
-            <TextInput source="image" label="Featured Image URL" fullWidth />
-            <TextInput source="content" multiline rows={10} fullWidth required />
-            <DateInput source="date" defaultValue={new Date()} />
-            <NumberInput source="commentsCount" defaultValue={0} />
+            
+            {/* 💡 Include it here too so new posts can have pictures right away */}
+            <TextInput 
+                source="image" 
+                label="Image Path / URL (e.g., src/images/5.jpg)" 
+                fullWidth 
+            />
+            
+            <DateInput source="publishedDate" defaultValue={new Date()} />
+            <TextInput source="content" multiline rows={5} fullWidth />
         </SimpleForm>
     </Create>
 );
 
 // 3. EDIT VIEW: Form to modify existing posts
 export const BlogEdit = (props) => (
-    <Edit {...props}>
-        <SimpleForm>
-            <TextInput source="id" disabled />
-            <TextInput source="title" fullWidth required />
-            <TextInput source="author" />
-            <TextInput source="category" />
-            <TextInput source="image" label="Featured Image URL" fullWidth />
-            <TextInput source="content" multiline rows={10} fullWidth required />
-            <DateInput source="date" />
-            <NumberInput source="commentsCount" />
-        </SimpleForm>
-    </Edit>
+    <SimpleForm>
+        <TextInput disabled source="id" />
+        <TextInput source="title" fullWidth />
+        <TextInput source="author" />
+        <TextInput source="category" />
+        
+        {/* 💡 THE MISSING LINK: Adding the image input field */}
+        <TextInput 
+            source="image" 
+            label="Image Path / URL (e.g., src/images/5.jpg)" 
+            fullWidth 
+        />
+        
+        <DateInput source="publishedDate" />
+        <TextInput source="content" multiline rows={5} fullWidth />
+    </SimpleForm>
 );
