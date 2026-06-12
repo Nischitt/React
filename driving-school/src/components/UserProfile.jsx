@@ -14,35 +14,56 @@ export default function UserProfile() {
 
     // Fetch data from backend on page load
     useEffect(() => {
-        // Core Security Guard: If no token exists, bounce to login
-        if (!token) {
-            console.log("No authorization token found. Redirecting...");
-            window.location.href = '/login'; 
-            return;
+    // 1. Wait for token state to initialize to avoid false-alarm redirects on refresh
+    if (token === undefined) return; 
+
+    // 2. Core Security Guard: If token is explicitly null/empty after initialization, bounce
+    if (!token) {
+        console.log("No authorization token found. Redirecting to login...");
+        window.location.href = '/userprofile'; 
+        return;
+    }
+
+    setLoading(true);
+
+    // 3. Include Authorization headers in case backend requires token verification
+    const fetchOptions = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
         }
+    };
 
-        Promise.all([
-            fetch('http://localhost:5000/api/bookings').then(res => res.json()),
-            fetch('http://localhost:5000/api/packages').then(res => res.json()),
-            fetch('http://localhost:5000/api/courses').then(res => res.json())
-        ])
-        .then(([bookingsData, packagesData, coursesData]) => {
-            // Filter bookings so the student only sees their own entries
-            const userBookings = Array.isArray(bookingsData) 
-                ? bookingsData.filter(b => b.studentEmail === studentEmail)
-                : [];
-                
-            setMyBookings(userBookings);
-            setAvailablePackages(packagesData);
-            setAvailableCourses(coursesData);
-            setLoading(false);
+    Promise.all([
+        fetch('http://localhost:5000/api/bookings', fetchOptions).then(res => {
+            if (!res.ok) throw new Error(`Bookings failed: ${res.status}`);
+            return res.json();
+        }),
+        fetch('http://localhost:5000/api/packages', fetchOptions).then(res => {
+            if (!res.ok) throw new Error(`Packages failed: ${res.status}`);
+            return res.json();
+        }),
+        fetch('http://localhost:5000/api/courses', fetchOptions).then(res => {
+            if (!res.ok) throw new Error(`Courses failed: ${res.status}`);
+            return res.json();
         })
-        .catch(err => {
-            console.error("Error fetching profile details:", err);
-            setLoading(false);
-        });
-    }, [token, studentEmail]);
-
+    ])
+    .then(([bookingsData, packagesData, coursesData]) => {
+        // 4. Safe Filtering: Ensure we have a valid studentEmail before filtering
+        const userBookings = Array.isArray(bookingsData) && studentEmail
+            ? bookingsData.filter(b => b.studentEmail?.toLowerCase() === studentEmail.toLowerCase())
+            : [];
+            
+        setMyBookings(userBookings);
+        setAvailablePackages(packagesData);
+        setAvailableCourses(coursesData);
+        setLoading(false);
+    })
+    .catch(err => {
+        console.error("Error fetching profile details:", err);
+        setLoading(false);
+    });
+}, [token, studentEmail]);
     // Handle interactive instant booking form submissions
     const handleInstantBook = async (item, type) => {
         const confirmBooking = window.confirm(`Would you like to register an application for: ${item.name || item.title}?`);
@@ -55,7 +76,8 @@ export default function UserProfile() {
             itemType: type,
             itemName: item.name || item.title,
             itemPrice: item.price || item.startingPrice || 0,
-            status: 'Pending'
+            status: 'Pending',
+            paymentStatus: 'Unpaid'
         };
 
         try {
@@ -75,6 +97,71 @@ export default function UserProfile() {
         } catch (error) {
             setMessage({ text: error.message, type: 'error' });
         }
+    };
+
+    // Handle simulated payment interface pipeline
+    const handleWalletPayment = async (bookingId, itemName, amount) => {
+        // 1. Prompt user to choose gateway setup
+        const useEsewa = window.confirm(
+            `--- uDrive Digital Checkout Gateway ---\n\n` +
+            `Item: ${itemName}\n` +
+            `Total Amount: Rs. ${amount}\n\n` +
+            `Click [OK] to pay via eSewa\n` +
+            `Click [Cancel] to pay via Khalti`
+        );
+
+        const chosenGateway = useEsewa ? "eSewa" : "Khalti";
+        
+        // 2. Simulate entering wallet PIN credentials
+        const walletId = window.prompt(`Enter your 10-digit ${chosenGateway} ID/Mobile Number:`);
+        if (!walletId) return; // User cancelled execution
+        
+        const walletPin = window.prompt(`Enter your 4-digit ${chosenGateway} M-PIN:`);
+        if (!walletPin) return;
+
+        // 3. Initiate client loader screen state
+        setLoading(true);
+        setMessage({ text: `Connecting to secure ${chosenGateway} nodes... Please do not close this window.`, type: 'success' });
+
+        // 4. Simulate a short processing latency delay
+        setTimeout(async () => {
+            const fakeTxnId = "TXN-" + Math.floor(Math.random() * 10000000).toString();
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}/pay`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        transactionId: fakeTxnId,
+                        paymentMethod: chosenGateway
+                    })
+                });
+
+                if (response.ok) {
+    const newBooking = await response.json();
+    
+    // Extract the ID cleanly depending on how your backend structure wraps the saved object response
+    const actualDatabaseId = newBooking._id || newBooking.booking?._id || Date.now().toString();
+
+    setMyBookings([
+        ...myBookings, 
+        { 
+            _id: actualDatabaseId, // explicitly assign both fields to avoid lookup gaps
+            id: actualDatabaseId, 
+            ...bookingPayload 
+        }
+    ]);
+    
+    setMessage({ text: `Successfully applied for ${item.name || item.title}! Check your application table.`, type: 'success' });
+}else {
+                    throw new Error("Payment node verification failed.");
+                }
+            } catch (error) {
+                setMessage({ text: error.message, type: 'error' });
+            } finally {
+                setLoading(false);
+            }
+        }, 2000); // 2-second mock processing window
     };
 
     if (loading) {
@@ -122,6 +209,7 @@ export default function UserProfile() {
                                         <th className="p-3">Price</th>
                                         <th className="p-3">Application Date</th>
                                         <th className="p-3 text-center">Status</th>
+                                        <th className="p-3 text-center">Payment</th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-sm divide-y divide-gray-100">
@@ -137,6 +225,25 @@ export default function UserProfile() {
                                                 }`}>
                                                     {booking.status}
                                                 </span>
+                                            </td>
+                                            <td className="p-3 text-center">
+                                                {booking.paymentStatus === 'Paid' ? (
+                                                    <div className="flex flex-col items-center">
+                                                        <span className="inline-block bg-emerald-100 text-emerald-800 text-[11px] font-extrabold px-2.5 py-1 rounded">
+                                                            ✓ Paid via {booking.paymentMethod || 'Wallet'}
+                                                        </span>
+                                                        {booking.transactionId && (
+                                                            <span className="text-[10px] text-gray-400 font-mono mt-0.5">{booking.transactionId}</span>
+                                                        )}
+                                                    </div>
+                                                ) : (
+                                                    <button 
+                                                        onClick={() => handleWalletPayment(booking._id || booking.id, booking.itemName, booking.itemPrice)}
+                                                        className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors shadow-sm"
+                                                    >
+                                                        Pay Now
+                                                    </button>
+                                                )}
                                             </td>
                                         </tr>
                                     ))}
@@ -192,6 +299,7 @@ export default function UserProfile() {
                                     alt={course.title}
                                     onError={(e) => { e.target.src = 'https://placehold.co/150x100?text=Driving+Course'; }}
                                     className="w-full h-full object-cover"
+                                
                                 />
                             </div>
                             <div className="flex-1 flex flex-col justify-between h-full min-w-0">

@@ -164,7 +164,43 @@ app.delete('/api/bookings/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+// Route to update payment status after a successful simulated transaction
+app.put('/api/bookings/:id/pay', async (req, res) => {
+    try {
+        const { transactionId } = req.body;
+        const bookingId = req.params.id;
 
+        // SAFE GUARD: Check if the ID is a valid MongoDB ObjectId to prevent 500 CastError crashes
+        if (!mongoose.Types.ObjectId.isValid(bookingId)) {
+            console.log(`[Simulation] Handling mock/temporary timestamp ID: ${bookingId}`);
+            return res.status(200).json({ 
+                message: "Simulated payment verified successfully for mock record",
+                updatedBooking: { 
+                    _id: bookingId, 
+                    paymentStatus: 'Paid', 
+                    status: 'Approved', 
+                    transactionId 
+                }
+            });
+        }
+
+        // If it IS a valid MongoDB ObjectId, proceed with the actual database transaction
+        const updatedBooking = await Booking.findByIdAndUpdate(
+            bookingId,
+            { paymentStatus: 'Paid', status: 'Approved', transactionId },
+            { new: true }
+        );
+
+        if (!updatedBooking) {
+            return res.status(404).json({ message: "Booking record not found in database" });
+        }
+
+        return res.status(200).json({ message: "Payment verified successfully", updatedBooking });
+    } catch (error) {
+        console.error("Backend payment processing error:", error);
+        return res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
+});
 // ==========================================
 // COURSES ENDPOINTS
 // ==========================================

@@ -32,7 +32,9 @@ const BookingSchema = new mongoose.Schema({
     itemName: { type: String, required: true }, 
     itemPrice: { type: Number, required: true },
     bookingDate: { type: Date, default: Date.now },
-    status: { type: String, default: 'Pending' }
+    status: { type: String, default: 'Pending' },
+    paymentStatus: { type: String, default: 'Unpaid' }, 
+    transactionId: { type: String, default: null }
 });
 
 const BlogSchema = new mongoose.Schema({

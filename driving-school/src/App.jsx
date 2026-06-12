@@ -15,8 +15,9 @@ import Mission from "./components/Mission";
 import Single from "./components/Single";
 import LoginSignup from "./components/LoginSignup";
 import UserProfile from "./components/UserProfile";
-
 function App() {
+
+  
   return (
     <BrowserRouter>
       <Navbar />

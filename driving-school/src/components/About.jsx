@@ -4,14 +4,28 @@ export default function About() {
   return (
     
     <div className="w-full bg-white font-sans antialiased text-gray-700">
-        <section className="relative h-[30px] bg-neutral-900 flex flex-col items-center justify-center overflow-hidden">
-        <img 
-          src="src/images/hero.jpg" 
-          alt="Single course banner background" 
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-30 mix-blend-luminosity"
-        />
+        <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+  <img
+    src="src/images/hero.jpg"
+    alt="About Banner"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+
+  <div className="absolute inset-0 bg-black/60"></div>
+
+  <div className="relative z-10 text-center text-white">
+    <h1 className="text-5xl md:text-7xl font-black mb-4">
+      About uDrive
+    </h1>
+
+    <p className="max-w-2xl mx-auto text-lg text-gray-200">
+      Empowering safe and confident drivers since 20+ years of Experience with professional
+      instructors, modern vehicles, and proven training methods.
+    </p>
+  </div>
+</section>
        
-      </section>
+      
 
       
       {/* --- SECTION 1: Pioneer Info Grid --- */}
@@ -20,7 +34,7 @@ export default function About() {
           
           {/* Left Column: Image with overlay text box */}
           <div className="lg:col-span-6 relative">
-            <div className="w-full aspect-[4/3] sm:aspect-square max-w-lg mx-auto overflow-hidden rounded-sm bg-gray-100 shadow-sm">
+            <div className="w-full h-[750px] sm:aspect-square max-w-lg mx-auto overflow-hidden rounded-sm bg-gray-100 shadow-sm">
               <img 
                 src="src/images/2.jpg" 
                 alt="Driving training session" 
@@ -29,163 +43,219 @@ export default function About() {
             </div>
             
             {/* 12.6K Stats Overlay Badge */}
-            <div className="absolute bottom-0 right-4 sm:right-12 bg-white px-6 py-4 shadow-xl flex items-center gap-4 rounded-xs border border-gray-100">
-              <div className="text-right">
-                <span className="block text-2xl font-black text-slate-900 leading-tight">12.6K</span>
-                <span className="block text-[10px] uppercase font-bold tracking-wider text-gray-400">Total Training Hours</span>
-              </div>
-              <div className="w-10 h-10 bg-yellow-500 rounded-sm flex items-center justify-center text-black font-bold text-lg">
-                ⏱
-              </div>
-            </div>
+            <div className="absolute bottom-8 left-8 bg-white rounded-2xl shadow-2xl px-6 py-5">
+  <h3 className="text-3xl font-black text-yellow-500">
+    12.6K+
+  </h3>
+  <p className="text-sm text-gray-500">
+    Training Hours Completed
+  </p>
+</div>
           </div>
 
           {/* Right Column: Copy & Badges */}
-          <div className="lg:col-span-6 flex flex-col justify-center">
-            <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight leading-tight max-w-md mb-6">
-              udrive driving School has been a pioneer in the field of driving training since 2006!..
-            </h2>
-            
-            <p className="text-xs text-gray-400 leading-relaxed mb-4 max-w-md">
-              Explain to you how all this mistaken denouncing pleasure and praising pain was born and we will give you a complete account of the system, and expound the actual teachings.
-            </p>
-            <p className="text-xs text-gray-400 leading-relaxed mb-8 max-w-md">
-              Mistaken denouncing pleasure and praising pain was born and we will give you complete account of the system expound.
-            </p>
+         {/* Right Column */}
+<div className="lg:col-span-6 flex flex-col justify-center">
 
-            {/* Content Dropdowns / Accordions and Badge Items */}
-            <div className="flex flex-col sm:flex-row gap-6 items-start">
-              <div className="flex-1 w-full space-y-2">
-                <div className="flex items-center justify-between border-b border-slate-900 pb-2 text-xs font-bold text-slate-900 cursor-pointer">
-                  <span>Our Statements</span>
-                  <span className="text-[10px] opacity-60">▼</span>
-                </div>
-                <div className="flex items-center justify-between border-b border-gray-200 pb-2 text-xs font-bold text-slate-900 cursor-pointer">
-                  <span>Areas Covered</span>
-                  <span className="text-[10px] opacity-40">▼</span>
-                </div>
-              </div>
+  <span className="text-yellow-500 font-bold uppercase tracking-widest text-sm mb-3">
+    About uDrive
+  </span>
 
-              {/* Side Certification Badges */}
-              <div className="flex gap-4 self-center sm:self-start">
-                <div className="w-16 h-20 bg-white border border-gray-100 shadow-xs flex flex-col items-center justify-center p-2 rounded-xs">
-                  <div className="text-xs text-center border-2 border-dashed border-slate-800 rounded-xs px-1 font-bold text-slate-800 scale-90">
-                    BEST <br/><span className="text-[8px] font-normal">INSTITUTE</span>
-                  </div>
-                </div>
-                <div className="w-16 h-20 bg-white border border-gray-100 shadow-xs flex flex-col items-center justify-center p-2 rounded-xs">
-                  <div className="text-[10px] font-black text-center text-slate-800 border border-slate-800 rounded-full w-10 h-10 flex items-center justify-center">
-                    ★ 5 ★
-                  </div>
-                </div>
-              </div>
-            </div>
+  <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6">
+    Driving Success Since
+    <span className="text-yellow-500"> 2006</span>
+  </h2>
 
-          </div>
+  <p className="text-gray-600 leading-relaxed text-base mb-6">
+    At uDrive Driving School, we are committed to helping learners become
+    confident, responsible, and skilled drivers. Our certified instructors
+    combine classroom learning with practical road experience to ensure
+    every student develops safe driving habits for life.
+  </p>
+
+  <p className="text-gray-600 leading-relaxed text-base mb-8">
+    With more than 20 years of excellence, we have trained thousands of
+    successful drivers and maintained one of the highest first-time pass
+    rates in the region.
+  </p>
+
+  {/* Feature Cards */}
+  <div className="grid grid-cols-2 gap-4 mb-8">
+
+    <div className="bg-slate-50 p-4 rounded-xl border">
+      <h4 className="font-bold text-slate-900">
+        8000+
+      </h4>
+      <p className="text-sm text-gray-500">
+        Successful Students
+      </p>
+    </div>
+
+    <div className="bg-slate-50 p-4 rounded-xl border">
+      <h4 className="font-bold text-slate-900">
+        98%
+      </h4>
+      <p className="text-sm text-gray-500">
+        First-Time Pass Rate
+      </p>
+    </div>
+
+    <div className="bg-slate-50 p-4 rounded-xl border">
+      <h4 className="font-bold text-slate-900">
+        20+
+      </h4>
+      <p className="text-sm text-gray-500">
+        Years Experience
+      </p>
+    </div>
+
+    <div className="bg-slate-50 p-4 rounded-xl border">
+      <h4 className="font-bold text-slate-900">
+        25+
+      </h4>
+      <p className="text-sm text-gray-500">
+        Professional Instructors
+      </p>
+    </div>
+
+  </div>
+
+  {/* Check List */}
+  <div className="space-y-3 mb-8">
+
+    <div className="flex items-center gap-3">
+      <span className="w-6 h-6 rounded-full bg-yellow-500 flex items-center justify-center text-black text-sm font-bold">
+        ✓
+      </span>
+      <span className="font-medium text-slate-700">
+        Certified Driving Instructors
+      </span>
+    </div>
+
+    <div className="flex items-center gap-3">
+      <span className="w-6 h-6 rounded-full bg-yellow-500 flex items-center justify-center text-black text-sm font-bold">
+        ✓
+      </span>
+      <span className="font-medium text-slate-700">
+        Modern Dual-Control Vehicles
+      </span>
+    </div>
+
+    <div className="flex items-center gap-3">
+      <span className="w-6 h-6 rounded-full bg-yellow-500 flex items-center justify-center text-black text-sm font-bold">
+        ✓
+      </span>
+      <span className="font-medium text-slate-700">
+        Flexible Lesson Scheduling
+      </span>
+    </div>
+
+    <div className="flex items-center gap-3">
+      <span className="w-6 h-6 rounded-full bg-yellow-500 flex items-center justify-center text-black text-sm font-bold">
+        ✓
+      </span>
+      <span className="font-medium text-slate-700">
+        Highway & Test Route Training
+      </span>
+    </div>
+
+  </div>
+
+  
+
+</div>
         </div>
       </section>
 
-      {/* --- SECTION 2: 4000+ Counters Row --- */}
-      <section className="bg-white border-t border-b border-gray-100 py-16">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          
-          {/* Big Graphic Text Row */}
-          <div className="relative flex items-center justify-center mb-2">
-            <div className="absolute left-0 right-0 h-[1px] bg-gray-200 z-0" />
-            <h3 className="text-5xl md:text-6xl font-black text-slate-950 bg-white px-8 relative z-10 tracking-tight">
-              4000+
-            </h3>
-          </div>
-          <p className="text-xs uppercase font-bold tracking-widest text-gray-400 mb-12">Happy Customers</p>
+      <section className="py-20 bg-slate-950 text-white">
+  <div className="max-w-6xl mx-auto px-6">
 
-          {/* Metric Columns */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {[
-              { num: "5+", label: "Years of Experience" },
-              { num: "27", label: "Professional Staff" },
-              { num: "96%", label: "1st Time Pass Rate" },
-              { num: "12.6K", label: "Total Training Hours" }
-            ].map((stat, idx) => (
-              <div key={idx} className="flex flex-col items-center border-r last:border-0 border-gray-100 px-4">
-                <span className="text-yellow-500 font-bold text-xs mb-2">○</span>
-                <span className="text-2xl font-black text-slate-900 mb-1">{stat.num}</span>
-                <span className="text-[11px] text-gray-400 font-medium whitespace-nowrap">{stat.label}</span>
-              </div>
-            ))}
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-black">
+        Our Mission & Vision
+      </h2>
+    </div>
+
+    <div className="grid md:grid-cols-2 gap-10">
+
+      <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
+        <h3 className="text-2xl font-bold text-yellow-500 mb-4">
+          Our Mission
+        </h3>
+
+        <p className="text-gray-300">
+          To provide safe, affordable, and professional driving education
+          that prepares students for real-world driving situations.
+        </p>
+      </div>
+
+      <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
+        <h3 className="text-2xl font-bold text-yellow-500 mb-4">
+          Our Vision
+        </h3>
+
+        <p className="text-gray-300">
+          To be the most trusted driving school known for producing
+          confident and responsible drivers.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+     <section className="py-24 bg-white">
+  <div className="max-w-7xl mx-auto px-6">
+
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-black">
+        Why Students Choose uDrive
+      </h2>
+    </div>
+
+    <div className="grid md:grid-cols-4 gap-8">
+
+      {[
+        "Certified Instructors",
+        "Modern Training Cars",
+        "Flexible Scheduling",
+        "98% Pass Rate",
+      ].map((item, index) => (
+        <div
+          key={index}
+          className="p-8 bg-slate-50 rounded-2xl text-center shadow hover:shadow-xl transition"
+        >
+          <div className="text-yellow-500 text-5xl mb-4">
+            ★
           </div>
 
+          <h3 className="font-bold text-lg">
+            {item}
+          </h3>
         </div>
-      </section>
+      ))}
+    </div>
 
-      {/* --- SECTION 3: Timeline Block Generation --- */}
-      <section className="bg-[#f9f9f9] py-20">
-        <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Column: Alternating Stack */}
-          <div className="lg:col-span-6 space-y-6">
-            
-            {/* Timeline Item 1 */}
-            <div className="bg-white p-6 shadow-xs border border-gray-100/60 flex items-start gap-6 rounded-sm">
-              <div className="w-20 h-20 bg-gray-200 overflow-hidden shrink-0">
-                <img src="src/images/3.jpg" alt="2010 milestone" className="w-full h-full object-cover" />
-              </div>
-              <div>
-                <div className="flex items-center gap-1 text-slate-300 font-black text-xl mb-1">
-                  <span className="text-yellow-500 text-base font-normal">»</span> 2010
-                </div>
-                <h4 className="text-xs font-bold text-slate-900 mb-2">Turn Into a Big</h4>
-                <p className="text-[11px] text-gray-400 leading-relaxed">
-                  Enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure.
-                </p>
-              </div>
-            </div>
+  </div>
+</section>
 
-            {/* Timeline Item 2 */}
-            <div className="bg-white p-6 shadow-xs border border-gray-100/60 flex items-start gap-6 rounded-sm">
-              <div className="w-20 h-20 bg-gray-200 overflow-hidden shrink-0">
-                <img src="src/images/1.jpg" alt="2006 milestone" className="w-full h-full object-cover" />
-              </div>
-              <div>
-                <div className="flex items-center gap-1 text-slate-300 font-black text-xl mb-1">
-                  <span className="text-yellow-500 text-base font-normal">»</span> 2006
-                </div>
-                <h4 className="text-xs font-bold text-slate-900 mb-2">The Early Years</h4>
-                <p className="text-[11px] text-gray-400 leading-relaxed">
-                  To take a trivial example which of us ever undertakes laborious physical exercise, except to obtain some advantage.
-                </p>
-              </div>
-            </div>
+<section className="py-24 bg-yellow-500">
+  <div className="max-w-4xl mx-auto text-center px-6">
 
-            {/* Controls Row */}
-            <div className="flex justify-between items-center pt-2">
-              <div className="flex gap-2">
-                <button className="w-8 h-8 border border-gray-200 bg-white text-gray-400 text-xs hover:bg-slate-950 hover:text-white transition rounded-xs">
-                  ▼
-                </button>
-                <button className="w-8 h-8 border border-gray-200 bg-white text-gray-400 text-xs hover:bg-slate-950 hover:text-white transition rounded-xs">
-                  ▲
-                </button>
-              </div>
-              <button className="bg-slate-950 text-white font-bold text-[10px] uppercase tracking-widest px-5 py-3 shadow-md hover:bg-slate-800 transition rounded-xs">
-                Our Generation
-              </button>
-            </div>
+    <h2 className="text-5xl font-black text-black mb-6">
+      Ready To Start Your Driving Journey?
+    </h2>
 
-          </div>
+    <p className="text-black/70 text-lg mb-8">
+      Join thousands of successful drivers trained by uDrive.
+    </p>
 
-          {/* Right Column: Angled Frame Image */}
-          <div className="lg:col-span-6 flex justify-center">
-            <div className="relative w-full aspect-[4/3] max-w-md bg-gray-100 rounded-bl-[80px] overflow-hidden shadow-lg border border-gray-200">
-              <img 
-                src="src/images/5.jpg" 
-                alt="Cheerful dynamic instructor profile" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+    <button className="bg-black text-white px-10 py-4 rounded-full font-bold hover:scale-105 transition">
+      Enroll Now
+    </button>
 
-        </div>
-      </section>
+  </div>
+</section>
 
     </div>
   );
