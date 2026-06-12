@@ -1,7 +1,6 @@
-// models.js
+// backend/models.js
 const mongoose = require('mongoose');
 
-// 1. PACKAGES SCHEMA
 const PackageSchema = new mongoose.Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
@@ -15,7 +14,6 @@ const PackageSchema = new mongoose.Schema({
     isPopular: { type: Boolean, default: false }
 });
 
-// 2. COURSES SCHEMA
 const CourseSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -26,7 +24,6 @@ const CourseSchema = new mongoose.Schema({
     note: { type: String }
 });
 
-// 3. BOOKINGS SCHEMA
 const BookingSchema = new mongoose.Schema({
     studentName: { type: String, required: true },
     studentEmail: { type: String, required: true },
@@ -38,7 +35,6 @@ const BookingSchema = new mongoose.Schema({
     status: { type: String, default: 'Pending' }
 });
 
-// 4. BLOGS SCHEMA
 const BlogSchema = new mongoose.Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
@@ -50,7 +46,6 @@ const BlogSchema = new mongoose.Schema({
     tags: [{ type: String }]
 });
 
-// 5. PAGE SETTINGS SCHEMA
 const PageSettingsSchema = new mongoose.Schema({
     _id: { type: String, required: true },
     tuitionCost: Number,
@@ -70,13 +65,19 @@ const contactSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now }
 });
 
+// NEW: User Schema to hold Student & Admin login details
+const UserSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: { type: String, default: 'user' } // 'user' = Student, 'admin' = Owner
+}, { timestamps: true });
+
 const Package = mongoose.models.Package || mongoose.model('Package', PackageSchema);
 const Course = mongoose.models.Course || mongoose.model('Course', CourseSchema);
 const Booking = mongoose.models.Booking || mongoose.model('Booking', BookingSchema);
 const Blog = mongoose.models.Blog || mongoose.model('Blog', BlogSchema);
 const PageSetting = mongoose.models.PageSetting || mongoose.model('PageSetting', PageSettingsSchema);
-
-// The CORRECT way to define the model
 const Contact = mongoose.models.Contact || mongoose.model('Contact', contactSchema);
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
-module.exports = { Package, Course, Booking, Blog, PageSetting, Contact };
+module.exports = { Package, Course, Booking, Blog, PageSetting, Contact, User };

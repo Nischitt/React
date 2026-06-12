@@ -13,6 +13,8 @@ import Tips from "./components/Tips";
 import Team from "./components/Team";
 import Mission from "./components/Mission";
 import Single from "./components/Single";
+import LoginSignup from "./components/LoginSignup";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   return (
@@ -34,6 +36,9 @@ function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/mission" element={<Mission />} />
         <Route path="/single" element={<Single />} />
+        <Route path="/loginsignup" element={<LoginSignup />} />
+        <Route path="/userprofile" element={<UserProfile />} />
+
 
         {/* Fallback route: Redirects broken URLs back to the homepage */}
         <Route path="*" element={<Hero />} />

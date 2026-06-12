@@ -129,140 +129,124 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. CUSTOMIZED SERVICES SECTION (Dark Mode Grid Layout) */}
-      <section className="py-24 bg-slate-950 text-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-xl mx-auto mb-16">
-            <span className="text-yellow-500 font-bold uppercase tracking-widest text-xs mb-2 block">Our Expertise</span>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Services customized for you</h2>
-            <div className="w-12 h-1 bg-yellow-500 mx-auto mt-4" />
-          </div>
+   <section className="py-28 bg-slate-950 text-white relative overflow-hidden">
+  <div className="absolute inset-0 opacity-10">
+    <div className="absolute top-20 left-20 w-72 h-72 bg-yellow-500 rounded-full blur-3xl"></div>
+    <div className="absolute bottom-20 right-20 w-72 h-72 bg-yellow-500 rounded-full blur-3xl"></div>
+  </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Student Driver Course",
-                desc: "Complete safety frameworks focused on high-density intersections and defensive steering mechanisms.",
-                img: "src/images/22.jpg"
-              },
-              {
-                title: "License Preparation",
-                desc: "Precise simulations of official highway assessment routes with continuous instructor mock reviews.",
-                img: "src/images/7.jpg"
-              },
-              {
-                title: "Road Safety Guide",
-                desc: "Advanced night navigation and inclement weather operational control patterns for private drivers.",
-                img: "src/images/8.jpg"
-              }
-            ].map((service, index) => (
-              <div key={index} className="bg-neutral-900 rounded-sm overflow-hidden border border-neutral-800 shadow-xl group hover:border-yellow-500/30 transition duration-300">
-                <div className="relative h-56 overflow-hidden">
-                  <img src={service.img} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  <div className="absolute top-0 left-0 bg-yellow-500 text-slate-950 px-3 py-2 font-bold text-xs uppercase tracking-wider">
-                    Package 0{index + 1}
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-lg font-bold mb-3 text-neutral-100 group-hover:text-yellow-500 transition">{service.title}</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed mb-6">{service.desc}</p>
-                  <div className="border-t border-neutral-800 pt-4 flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-widest text-yellow-500 hover:text-yellow-400 cursor-pointer">
-                      View Details Details →
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. INTERLOCKING PRICING COURSES SECTION */}
-      <section className="py-24 bg-white text-slate-900">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center max-w-xl mx-auto mb-20">
-            <span className="text-yellow-600 font-bold uppercase tracking-wider text-xs mb-2 block">Pricing Packages</span>
-            <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight">Courses to drive with confidence</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20 relative">
-            
-            {/* Standard Package Option */}
-            <div className="flex flex-col justify-between border border-slate-100 p-6 rounded-sm bg-slate-50/50">
-              <div className="relative mb-6">
-                <img src="src/images/10.jpg" alt="Standard Driving Course" className="w-full aspect-[4/3] object-cover rounded-xs shadow-sm" />
-                <div className="absolute top-4 right-4 bg-slate-950 text-white px-4 py-2 font-black text-center shadow-lg border-l-2 border-yellow-500">
-                  <p className="text-[16px] text-yellow-500 font-extrabold leading-none">$64.00</p>
-                  <p className="text-[9px] font-medium tracking-wide mt-1 opacity-60">Fixed Rate</p>
-                </div>
-              </div>
-
-              <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">Beginner Level</span>
-                <h3 className="text-2xl font-extrabold text-slate-950 mb-4">Standard Driving Course</h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-6">
-                  Structured introduction focusing primarily on clutch balance mechanics, standard urban lane management, parking alignment metrics, and primary highway entry patterns.
-                </p>
-
-                <div className="grid grid-cols-2 gap-4 border-t border-b py-4 my-4 border-slate-200/60">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Theory Lessons</p>
-                    <p className="text-sm font-bold text-slate-950">04 Full Hours</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Practical Drive</p>
-                    <p className="text-sm font-bold text-slate-950">18 Full Hours</p>
-                  </div>
-                </div>
-
-                <div className="bg-slate-950 text-neutral-300 text-xs font-medium p-3 rounded-xs border-l-2 border-yellow-500">
-                  ⚠️ Driving test vehicle routes are coordinated separately.
-                </div>
-              </div>
-            </div>
-
-            {/* Extended Package Option */}
-            <div className="flex flex-col justify-between border border-slate-100 p-6 rounded-sm bg-slate-50/50 md:translate-y-12">
-              <div className="relative mb-6">
-                <img src="src/images/23.jpg" alt="Extended Driving Course" className="w-full aspect-[4/3] object-cover rounded-xs shadow-sm" />
-                <div className="absolute top-4 right-4 bg-slate-950 text-white px-4 py-2 font-black text-center shadow-lg border-l-2 border-yellow-500">
-                  <p className="text-[16px] text-yellow-500 font-extrabold leading-none">$84.00</p>
-                  <p className="text-[9px] font-medium tracking-wide mt-1 opacity-60">Fixed Rate</p>
-                </div>
-              </div>
-
-              <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">Advanced Level</span>
-                <h3 className="text-2xl font-extrabold text-slate-950 mb-4">Extended Driving Course</h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-6">
-                  Intensive highway control sequences, dynamic emergency avoidance modules, heavy commercial route layouts, and comprehensive test pre-screening.
-                </p>
-
-                <div className="grid grid-cols-2 gap-4 border-t border-b py-4 my-4 border-slate-200/60">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Theory Lessons</p>
-                    <p className="text-sm font-bold text-slate-950">08 Full Hours</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Practical Drive</p>
-                    <p className="text-sm font-bold text-slate-950">26 Full Hours</p>
-                  </div>
-                </div>
-
-                <div className="bg-slate-950 text-neutral-300 text-xs font-medium p-3 rounded-xs border-l-2 border-yellow-500">
-                  ⚠️ Driving test vehicle routes are coordinated separately.
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      
-
+  <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <div className="text-center mb-20">
+      <span className="text-yellow-500 uppercase tracking-widest text-sm font-bold">
+        Why Choose Us
+      </span>
+      <h2 className="text-5xl font-extrabold mt-4">
+        Driving Excellence Since Day One
+      </h2>
     </div>
+
+    <div className="grid md:grid-cols-4 gap-8">
+      {[
+        "Certified Instructors",
+        "Modern Vehicles",
+        "Flexible Schedule",
+        "98% Pass Rate",
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="backdrop-blur-lg bg-white/5 border border-white/10 p-8 rounded-2xl hover:-translate-y-2 transition duration-300"
+        >
+          <div className="text-yellow-500 text-5xl mb-4">★</div>
+          <h3 className="font-bold text-xl">{item}</h3>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<section className="py-28 bg-white">
+  <div className="max-w-6xl mx-auto px-6">
+    <div className="text-center mb-20">
+      <h2 className="text-5xl font-extrabold">
+        Your Driving Journey
+      </h2>
+    </div>
+
+    <div className="grid md:grid-cols-4 gap-8">
+      {[
+        "Register",
+        "Theory Training",
+        "Road Practice",
+        "Get Licensed",
+      ].map((step, index) => (
+        <div key={index} className="relative text-center">
+          <div className="w-24 h-24 bg-yellow-500 rounded-full mx-auto flex items-center justify-center text-3xl font-black text-black shadow-lg">
+            {index + 1}
+          </div>
+
+          <h3 className="mt-6 text-xl font-bold">
+            {step}
+          </h3>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<section className="py-28 bg-white">
+  <div className="max-w-7xl mx-auto px-6">
+
+    <div className="text-center mb-20">
+      <h2 className="text-5xl font-extrabold">
+        Student Success Stories
+      </h2>
+    </div>
+
+    <div className="grid md:grid-cols-3 gap-8">
+
+      {[
+        "Passed on first attempt",
+        "Excellent instructors",
+        "Highly recommended"
+      ].map((text,index)=>(
+        <div
+          key={index}
+          className="p-8 rounded-3xl shadow-xl bg-gradient-to-br from-yellow-50 to-white border"
+        >
+          <div className="text-yellow-500 text-4xl mb-4">
+            ★★★★★
+          </div>
+
+          <p className="text-slate-600">
+            {text}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<section className="py-32 bg-yellow-500 relative overflow-hidden">
+  <div className="absolute inset-0">
+    <div className="absolute -top-20 -right-20 w-80 h-80 bg-white/20 rounded-full"></div>
+    <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-white/20 rounded-full"></div>
+  </div>
+
+  <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+    <h2 className="text-6xl font-black text-black mb-6">
+      Ready To Get Behind The Wheel?
+    </h2>
+
+    <p className="text-xl text-black/70 mb-10">
+      Join thousands of successful drivers trained by uDrive.
+    </p>
+
+    <a href="/contact">
+      <button className="bg-black text-white px-10 py-5 rounded-full text-lg font-bold hover:scale-105 transition">
+        Book Your First Lesson
+      </button>
+    </a>
+  </div>
+</section>
+    </div>
+
+    
   );
 }

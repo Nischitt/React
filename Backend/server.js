@@ -1,13 +1,19 @@
 // server.js
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const { Package, Course, Booking, Blog, PageSetting, Contact} = require('./models');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');;
+const { Package, Course, Booking, Blog, PageSetting, Contact, User} = require('./models');
+
+const JWT_SECRET = 'uDrive_Secret_Token_Key_123';
 
 const app = express();
+app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:5173', 
+    origin: '*', 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Range', 'X-Total-Count'],
     exposedHeaders: ['Content-Range', 'X-Total-Count'] 
@@ -17,6 +23,24 @@ app.use(express.json());
 mongoose.connect('mongodb://127.0.0.1:27017/udrive')
     .then(() => console.log('Connected to MongoDB...'))
     .catch(err => console.error('Could not connect to MongoDB...', err));
+
+
+app.post('/api/signup', async (req, res) => {
+    const { email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({ email, password: hashedPassword, role: 'user' });
+    res.status(201).json({ message: "User created" });
+});
+
+// Admin-Only Route to view users
+app.get('/api/users', async (req, res) => {
+    // Add logic here to verify JWT and check if role === 'admin'
+    const users = await User.find();
+    const mapped = users.map(u => ({ id: u._id.toString(), email: u.email, role: u.role }));
+    res.setHeader('Content-Range', `users 0-${mapped.length}/${mapped.length}`);
+    res.json(mapped);
+});
+
 
 // =================================================================
 // SPECIAL: PAGE SETTINGS ENDPOINTS
@@ -292,5 +316,97 @@ const getPagination = (req) => {
     const limit = end - start;
     return { start, limit };
 };
+
+const authenticateAdmin = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: "Access denied. Token missing." });
+    }
+    const token = authHeader.split(' ')[1];
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        if (decoded.role !== 'admin') {
+            return res.status(403).json({ error: "Access denied. Admin role required." });
+        }
+        req.user = decoded;
+        next();
+    } catch (error) {
+        return res.status(401).json({ error: "Invalid token session." });
+    }
+};
+
+app.post('/api/signup', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const existingUser = await User.findOne({ email });
+        if (existingUser) return res.status(400).json({ error: "User already registered" });
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await User.create({ email, password: hashedPassword, role: 'user' });
+        res.status(201).json({ message: "Registration successful" });
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) return res.status(400).json({ error: "Invalid email or password" });
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(400).json({ error: "Invalid email or password" });
+
+        const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: '24h' });
+        res.json({ token, user: { id: user._id.toString(), email: user.email, role: user.role } });
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// Admin-Only Route to view registered users
+app.get('/api/users', authenticateAdmin, async (req, res) => {
+    try {
+        const total = await User.countDocuments();
+        const users = await User.find().select('-password');
+        const mapped = users.map(u => ({ id: u._id.toString(), email: u.email, role: u.role }));
+        
+        res.setHeader('Content-Range', `users 0-${mapped.length}/${total}`);
+        res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
+        res.json(mapped);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ==========================================
+// CRUD ENDPOINTS (Packages, Bookings, Blogs, Contacts...)
+// ==========================================
+app.get('/api/packages', async (req, res) => {
+    const packages = await Package.find();
+    res.setHeader('Content-Range', `packages 0-${packages.length}/${packages.length}`);
+    res.json(packages.map(p => ({ id: p._id.toString(), ...p.toObject() })));
+});
+app.post('/api/bookings', async (req, res) => {
+    const newBooking = new Booking(req.body);
+    await newBooking.save();
+    res.status(201).json(newBooking);
+});
+app.get('/api/bookings', async (req, res) => {
+    const bookings = await Booking.find();
+    res.setHeader('Content-Range', `bookings 0-${bookings.length}/${bookings.length}`);
+    res.json(bookings.map(b => ({ id: b._id.toString(), ...b.toObject() })));
+});
+app.get('/api/courses', async (req, res) => {
+    const courses = await Course.find();
+    res.setHeader('Content-Range', `courses 0-${courses.length}/${courses.length}`);
+    res.json(courses.map(c => ({ id: c._id.toString(), ...c.toObject() })));
+});
+app.get('/api/blogs', async (req, res) => {
+    const blogs = await Blog.find();
+    res.setHeader('Content-Range', `blogs 0-${blogs.length}/${blogs.length}`);
+    res.json(blogs.map(b => ({ id: b._id.toString(), ...b.toObject() })));
+});
+app.get('/api/contacts', async (req, res) => {
+    const contacts = await Contact.find();
+    res.setHeader('Content-Range', `contacts 0-${contacts.length}/${contacts.length}`);
+    res.json(contacts.map(c => ({ id: c._id.toString(), ...c.toObject() })));
+});
+
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Backend API running on port ${PORT}`));
