@@ -17,6 +17,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import { SiteSettingsEdit } from './SiteSettingsEdit';
 // App.jsx
 import { ReviewList, ReviewEdit } from './reviews';
+import { API_URL } from './config';
 
 
 import { PackageList, PackageEdit, PackageCreate } from './packages';
@@ -108,7 +109,7 @@ const httpClient = (url, options = {}) => {
     return fetchUtils.fetchJson(url, options);
 };
 
-const baseDataProvider = simpleRestProvider('http://localhost:5000/api', httpClient);
+const baseDataProvider = simpleRestProvider(`${API_URL}/api`, httpClient);
 
 const dataProvider = {
     ...baseDataProvider,
@@ -134,7 +135,7 @@ const dataProvider = {
 
 const authProvider = {
     login: ({ username, password }) => {
-        return fetch('http://localhost:5000/api/login', {
+        return fetch(`${API_URL}/api/login`, {
             method: 'POST',
             body: JSON.stringify({ email: username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),

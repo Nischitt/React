@@ -1,9 +1,14 @@
+import React, { useState, useEffect } from 'react';
+import { API_URL } from './config';
+
 export const StudentProfile = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        const email = localStorage.getItem("studentEmail");
-        fetch(`http://localhost:5000/api/my-progress?email=${email}`)
+        const token = localStorage.getItem("token");
+        fetch(`${API_URL}/api/student/portal-metrics`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then(res => res.json())
             .then(setData);
     }, []);
@@ -13,33 +18,48 @@ export const StudentProfile = () => {
     return (
         <div className="p-8 bg-slate-900 rounded-2xl">
             <h2 className="text-white text-2xl font-bold">My Progress</h2>
-            
-            {/* Theory Progress Bar */}
+            <p className="text-slate-400 mt-1">{data.studentName} &middot; {data.activeCourse}</p>
+
+            {/* Overall Course Progress */}
             <div className="mt-6">
                 <div className="flex justify-between text-sm text-slate-400">
-                    <span>Theory Training</span>
-                    <span>{data.theoryCompleted} / {data.totalTheoryHours} Hours</span>
+                    <span>Course Progress</span>
+                    <span>{data.progressPercent}%</span>
                 </div>
                 <div className="w-full bg-slate-800 h-2 rounded-full mt-2">
-                    <div 
-                        className="bg-amber-500 h-2 rounded-full" 
-                        style={{ width: `${(data.theoryCompleted / data.totalTheoryHours) * 100}%` }}
+                    <div
+                        className="bg-amber-500 h-2 rounded-full"
+                        style={{ width: `${data.progressPercent}%` }}
                     />
                 </div>
             </div>
 
-            {/* Practical Progress Bar */}
+            {/* Attendance Rate */}
             <div className="mt-6">
                 <div className="flex justify-between text-sm text-slate-400">
-                    <span>Practical Road Training</span>
-                    <span>{data.practicalCompleted} / {data.totalPracticalHours} Hours</span>
+                    <span>Attendance Rate</span>
+                    <span>{data.attendanceRate}%</span>
                 </div>
                 <div className="w-full bg-slate-800 h-2 rounded-full mt-2">
-                    <div 
-                        className="bg-blue-500 h-2 rounded-full" 
-                        style={{ width: `${(data.practicalCompleted / data.totalPracticalHours) * 100}%` }}
+                    <div
+                        className="bg-blue-500 h-2 rounded-full"
+                        style={{ width: `${data.attendanceRate}%` }}
                     />
                 </div>
+            </div>
+
+            {/* Lessons Remaining */}
+            <div className="mt-6 flex justify-between text-sm">
+                <span className="text-slate-400">Lessons Remaining</span>
+                <span className="text-white font-semibold">{data.upcomingLessons}</span>
+            </div>
+
+            {/* Certificate Status */}
+            <div className="mt-3 flex justify-between text-sm">
+                <span className="text-slate-400">Certificate Status</span>
+                <span className={data.certificateStatus === 'Available' ? 'text-green-400 font-semibold' : 'text-slate-300 font-semibold'}>
+                    {data.certificateStatus}
+                </span>
             </div>
         </div>
     );

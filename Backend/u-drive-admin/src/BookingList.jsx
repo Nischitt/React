@@ -11,6 +11,7 @@ import {
 } from 'react-admin';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Button from '@mui/material/Button';
+import { API_URL } from './config';
 
 // Custom Row Button Component
 export const CertificateDownloadButton = () => {
@@ -25,7 +26,7 @@ export const CertificateDownloadButton = () => {
 
     // Handles fallback between MongoDB ._id and mapped React-Admin .id
     const recordId = record.id || record._id;
-    const downloadUrl = `http://localhost:5000/api/bookings/${recordId}/certificate`;
+    const downloadUrl = `${API_URL}/api/bookings/${recordId}/certificate`;
 
     return (
         <Button 
