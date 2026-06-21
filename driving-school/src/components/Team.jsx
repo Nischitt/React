@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 export default function Team() {
   const [teamMembers, setTeamMembers] = useState([]);
@@ -6,8 +7,7 @@ export default function Team() {
 
   // 📡 Fetch live backend team data on component mount
   useEffect(() => {
-    fetch('http://localhost:5000/api/team')
-      .then((res) => res.json())
+fetch(`${API_URL}/api/team`)      .then((res) => res.json())
       .then((data) => {
         const formattedMembers = data.map((member) => {
           const socialsArray = [];

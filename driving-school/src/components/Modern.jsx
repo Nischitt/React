@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { API_URL } from '../config';
 
 export default function HomeContent() {
   // State buckets for database records
@@ -21,8 +22,8 @@ export default function HomeContent() {
   // Pull data from your Node API server on load
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:5000/api/packages").then((res) => res.json()),
-      fetch("http://localhost:5000/api/courses").then((res) => res.json())
+      fetch(`${API_URL}/api/packages`).then((res) => res.json()),
+      fetch(`${API_URL}/api/courses`).then((res) => res.json())
     ])
       .then(([packagesData, coursesData]) => {
         setPackages(packagesData || []);
@@ -70,7 +71,8 @@ export default function HomeContent() {
 
     try {
       const token = localStorage.getItem("studentToken");
-      const response = await fetch("http://localhost:5000/api/bookings", {
+      const response = await fetch(`${API_URL}/api/bookings`, {
+
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

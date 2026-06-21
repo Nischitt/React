@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { API_URL } from '../config'; 
 
 export default function Blog() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -13,7 +14,7 @@ export default function Blog() {
     setLoading(true);
     
     // Fetching data from your paginated API endpoint
-    fetch(`http://localhost:5000/api/blogs?page=${currentPage}&limit=${postsPerPage}`)
+    fetch(`${API_URL}/api/blogs?page=${currentPage}&limit=${postsPerPage}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");

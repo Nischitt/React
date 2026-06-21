@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_URL } from '../config';
 
 export default function LoginSignup() {
   const [isSignup, setIsSignup] = useState(false);
@@ -12,7 +13,7 @@ export default function LoginSignup() {
     const route = isSignup ? "/api/signup" : "/api/login";
 
     try {
-      const response = await fetch(`http://localhost:5000${route}`, {
+      const response = await fetch(`${API_URL}${route}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

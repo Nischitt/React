@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { API_URL } from '../config';
 export default function Single() {
   const [coursePrice, setCoursePrice] = useState(5000); // Default placeholder price
   const [enrollStatus, setEnrollStatus] = useState("");
@@ -9,7 +9,8 @@ export default function Single() {
 useEffect(() => {
   const fetchPrice = async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/page-settings/standard-course/YOUR_ID_HERE");
+    const response = await fetch(`${API_URL}/api/page-settings/standard-course/YOUR_ID_HERE`);
+
     const data = await response.json();
     
     // Check your MongoDB document: is it 'tuitionCost' or 'price'?
@@ -53,7 +54,7 @@ useEffect(() => {
     try {
       console.log("Sending enrollment payload:", bookingPayload);
 
-      const response = await fetch("http://localhost:5000/api/bookings", {
+     const response = await fetch(`${API_URL}/api/bookings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

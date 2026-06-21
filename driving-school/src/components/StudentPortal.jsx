@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 export default function StudentPortal() {
   const [studentData, setStudentData] = useState(null);
@@ -30,7 +31,7 @@ export default function StudentPortal() {
     }
 
     // 2. Fetch live metrics from the updated package-aware backend endpoint
-    fetch('http://localhost:5000/api/student/portal-metrics', {
+    fetch(`${API_URL}/api/student/portal-metrics`, {
       headers: {
         'Authorization': `Bearer ${activeToken}`
       }
@@ -57,7 +58,7 @@ export default function StudentPortal() {
       localStorage.getItem('adminToken');
     
     try {
-      const response = await fetch('http://localhost:5000/api/student/check-in', {
+      const response = await fetch(`${API_URL}/api/student/check-in`, {
         method: 'POST',
         headers: { 
           'Authorization': `Bearer ${activeToken}`,
@@ -83,8 +84,7 @@ export default function StudentPortal() {
       alert("Certificate Locked. Ensure processing criteria are cleared on your ledger.");
       return;
     }
-    window.location.href = `http://localhost:5000/api/bookings/${studentData.id}/certificate`;
-  };
+window.location.href = `${API_URL}/api/bookings/${studentData.id}/certificate`;  };
 
   if (loading) return <div className="min-h-screen bg-slate-950 text-slate-500 font-mono flex items-center justify-center">Authorizing Secure Session...</div>;
   if (error) return <div className="min-h-screen bg-slate-950 text-rose-400 font-mono flex items-center justify-center p-4">⚠ Error: {error}</div>;

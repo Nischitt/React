@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { API_URL } from '../config';
 
 export default function Home() {
   const [reviews, setReviews] = useState([]);
@@ -10,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/public/reviews");
+        const response = await fetch(`${API_URL}/api/public/reviews`);
         const data = await response.json();
         if (Array.isArray(data)) {
           setReviews(data);

@@ -26,7 +26,7 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* This acts as your homepage (http://localhost:5173/) */}
+
         <Route path="/" element={<Hero />} />
         
         {/* Inner Pages */}

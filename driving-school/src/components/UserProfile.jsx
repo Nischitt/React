@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 export default function UserProfile() {
   // Read session storage values safely
@@ -32,15 +33,15 @@ export default function UserProfile() {
     };
 
     Promise.all([
-      fetch('http://localhost:5000/api/bookings', fetchOptions).then(res => {
+      fetch(`${API_URL}/api/bookings`, fetchOptions).then(res => {
         if (!res.ok) throw new Error(`Bookings failed: ${res.status}`);
         return res.json();
       }),
-      fetch('http://localhost:5000/api/packages', fetchOptions).then(res => {
+      fetch(`${API_URL}/api/packages`, fetchOptions).then(res => {
         if (!res.ok) throw new Error(`Packages failed: ${res.status}`);
         return res.json();
       }),
-      fetch('http://localhost:5000/api/courses', fetchOptions).then(res => {
+      fetch(`${API_URL}/api/courses`, fetchOptions).then(res => {
         if (!res.ok) throw new Error(`Courses failed: ${res.status}`);
         return res.json();
       })
@@ -78,7 +79,7 @@ export default function UserProfile() {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/bookings', {
+      const response = await fetch(`${API_URL}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bookingPayload)
@@ -121,7 +122,7 @@ export default function UserProfile() {
       const fakeTxnId = "TXN-" + Math.floor(Math.random() * 10000000).toString();
 
       try {
-        const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}/pay`, {
+       const response = await fetch(`${API_URL}/api/bookings/${bookingId}/pay`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -152,7 +153,7 @@ export default function UserProfile() {
   const handleDownloadCertificate = (bookingId) => {
     if (!bookingId) return;
     // Hits the programmatic node stream directly triggering attachment layout download
-    window.location.href = `http://localhost:5000/api/bookings/${bookingId}/certificate`;
+    window.location.href = `${API_URL}/api/bookings/${bookingId}/certificate`;
   };
 
   if (loading) {
@@ -374,7 +375,7 @@ export default function UserProfile() {
                 <div key={course.id || course._id} className="bg-white rounded-2xl border border-slate-200/60 p-5 flex flex-col sm:flex-row gap-5 hover:shadow-md transition">
                   <div className="w-full sm:w-32 h-28 bg-slate-950 rounded-xl overflow-hidden flex-shrink-0 border border-slate-800 relative">
                     <img 
-                      src={`http://localhost:5000/${course.image || 'src/images/6.jpg'}`} 
+                      src={`${API_URL}/${course.image || 'src/images/6.jpg'}`}
                       alt={course.title}
                       onError={(e) => { e.target.src = 'https://placehold.co/150x100?text=Udrive+Academy'; }}
                       className="w-full h-full object-cover opacity-80"
