@@ -10,7 +10,7 @@ export default function Mission() {
       <section className="relative h-[280px] bg-slate-950 flex flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950 z-10" />
         <img 
-          src="src/images/contact-banner.jpg" 
+          src="/images/contact-banner.jpg" 
           alt="Mission vision background" 
           className="absolute inset-0 w-full h-full object-cover object-center opacity-25 scale-105"
         />
@@ -79,7 +79,7 @@ export default function Mission() {
             <div className="lg:col-span-6 group">
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-slate-200/40 bg-slate-100">
                 <img 
-                  src="src/images/19.jpg" 
+                  src="/images/19.jpg" 
                   alt="Our Mission graphic" 
                   className="w-full h-full object-cover transform scale-100 group-hover:scale-[1.03] transition-transform duration-500" 
                 />
@@ -96,7 +96,7 @@ export default function Mission() {
             <div className="lg:col-span-6 order-last lg:order-first group">
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-slate-200/40 bg-slate-100">
                 <img 
-                  src="src/images/1.jpg" 
+                  src="/images/1.jpg" 
                   alt="Our Vision graphic" 
                   className="w-full h-full object-cover transform scale-100 group-hover:scale-[1.03] transition-transform duration-500" 
                 />

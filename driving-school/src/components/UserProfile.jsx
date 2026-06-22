@@ -375,7 +375,7 @@ export default function UserProfile() {
                 <div key={course.id || course._id} className="bg-white rounded-2xl border border-slate-200/60 p-5 flex flex-col sm:flex-row gap-5 hover:shadow-md transition">
                   <div className="w-full sm:w-32 h-28 bg-slate-950 rounded-xl overflow-hidden flex-shrink-0 border border-slate-800 relative">
                     <img 
-                      src={`${API_URL}/${course.image || 'src/images/6.jpg'}`}
+                      src={`${API_URL}/${course.image || '/images/6.jpg'}`}
                       alt={course.title}
                       onError={(e) => { e.target.src = 'https://placehold.co/150x100?text=Udrive+Academy'; }}
                       className="w-full h-full object-cover opacity-80"

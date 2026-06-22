@@ -6,7 +6,7 @@ export default function Courses() {
       id: 1,
       title: "Standard Driving Course",
       price: "64",
-      image: "src/images/6.jpg",
+      image: "/images/6.jpg",
       theory: "04 Hours",
       practical: "18 Hours",
       desc: "Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil pain can procure him some great pleasure."
@@ -15,7 +15,7 @@ export default function Courses() {
       id: 2,
       title: "Extended Driving Course",
       price: "84",
-      image: "src/images/7.jpg",
+      image: "/images/7.jpg",
       theory: "06 Hours",
       practical: "26 Hours",
       desc: "Explain to you how all this mistaken denouncing pleasure and praising pain was born and we will give you a complete account of the system, and expound the actual teachings of the explorer."
@@ -24,7 +24,7 @@ export default function Courses() {
       id: 3,
       title: "Commercial Truck License",
       price: "199",
-      image: "src/images/25.jpg",
+      image: "/images/25.jpg",
       theory: "12 Hours",
       practical: "40 Hours",
       desc: "Duis fringilla nunc velit, scelerisque libero iaculis. Ut pulvinar pretium justo, sit amet egestas. Praesent eget est vel mauris convallis porttitor at safety rules parameters."
@@ -33,7 +33,7 @@ export default function Courses() {
       id: 4,
       title: "Defensive Road Safety Guide",
       price: "45",
-      image: "src/images/24.jpg",
+      image: "/images/24.jpg",
       theory: "08 Hours",
       practical: "02 Hours",
       desc: "Mauris vitae quam vitae neque come ravida. Vivamus libero tellus vitae. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain."
@@ -48,7 +48,7 @@ export default function Courses() {
           ========================================================================= */}
       <section className="relative h-[240px] bg-neutral-900 flex flex-col items-center justify-center overflow-hidden">
         <img 
-          src="src/images/contact-banner.jpg" 
+          src="/images/contact-banner.jpg" 
           alt="Courses banner background" 
           className="absolute inset-0 w-full h-full object-cover object-center opacity-30 mix-blend-luminosity"
         />

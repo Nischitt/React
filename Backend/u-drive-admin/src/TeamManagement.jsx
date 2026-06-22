@@ -32,7 +32,7 @@ export const TeamEdit = () => (
             <TextInput disabled source="id" label="Database Reference Key" />
             <TextInput source="name" fullWidth />
             <TextInput source="title" label="Job Title (e.g., FOUNDER & HEAD INSTRUCTOR)" fullWidth />
-            <TextInput source="image" label="Asset Path / URL (e.g., src/images/instructor1.jpg)" fullWidth />
+            <TextInput source="image" label="Asset Path / URL (e.g., /images/instructor1.jpg)" fullWidth />
             <TextInput source="bio" multiline rows={4} fullWidth />
             <TextInput source="fbUrl" label="Facebook Profile Link" fullWidth />
             <TextInput source="twUrl" label="Twitter Profile Link" fullWidth />
@@ -47,7 +47,7 @@ export const TeamCreate = () => (
         <SimpleForm>
             <TextInput source="name" required fullWidth />
             <TextInput source="title" label="Job Title (e.g., SENIOR SAFETY INSTRUCTOR)" required fullWidth />
-            <TextInput source="image" label="Asset Path / URL (e.g., src/images/instructor2.jpg)" required fullWidth />
+            <TextInput source="image" label="Asset Path / URL (e.g., /images/instructor2.jpg)" required fullWidth />
             <TextInput source="bio" multiline rows={4} required fullWidth />
             <TextInput source="fbUrl" label="Facebook Profile Link" fullWidth />
             <TextInput source="twUrl" label="Twitter Profile Link" fullWidth />

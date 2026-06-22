@@ -82,7 +82,7 @@ export default function Tips() {
       <section className="relative h-[280px] bg-slate-950 flex flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950 z-10" />
         <img 
-          src="src/images/contact-banner.jpg" 
+          src="/images/contact-banner.jpg" 
           alt="Driving tips background" 
           className="absolute inset-0 w-full h-full object-cover object-center opacity-25 scale-105"
         />

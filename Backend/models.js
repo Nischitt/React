@@ -25,7 +25,7 @@ const CourseSchema = new mongoose.Schema({
     startingPrice: { type: Number, required: true },
     theoryHours: Number,
     practicalHours: Number,
-    image: { type: String, default: 'src/images/6.jpg' },
+    image: { type: String, default: '/images/6.jpg' },
     note: String
 });
 
@@ -80,7 +80,7 @@ const BlogSchema = new mongoose.Schema({
     author: { type: String, default: 'Isaac Herman' },
     date: { type: Date, default: Date.now },
     commentsCount: { type: Number, default: 0 },
-    image: { type: String, default: 'src/images/blog1.jpg' },
+    image: { type: String, default: '/images/blog1.jpg' },
     category: { type: String, default: 'Driving Course' },
     tags: [String]
 }, { timestamps: true });

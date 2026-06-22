@@ -57,7 +57,7 @@ fetch(`${API_URL}/api/team`)      .then((res) => res.json())
       <section className="relative h-[280px] bg-slate-950 flex flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950 z-10" />
         <img 
-          src="src/images/contact-banner.jpg" 
+          src="/images/contact-banner.jpg" 
           alt="Team background" 
           className="absolute inset-0 w-full h-full object-cover object-center opacity-25 scale-105"
         />
@@ -134,7 +134,7 @@ fetch(`${API_URL}/api/team`)      .then((res) => res.json())
                         src={member.image} 
                         alt={member.name} 
                         className="w-full h-full object-cover transform scale-100 group-hover:scale-[1.03] transition-transform duration-500"
-                        onError={(e) => { e.target.src = 'src/images/default-avatar.jpg'; }} 
+                        onError={(e) => { e.target.src = '/images/default-avatar.jpg'; }} 
                       />
                       <div className="absolute inset-0 bg-slate-950/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                     </div>

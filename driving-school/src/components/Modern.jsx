@@ -319,7 +319,7 @@ export default function HomeContent() {
               {/* Image */}
               <div className="relative overflow-hidden">
                 <img
-                  src={course.image || "src/images/6.jpg"}
+                  src={course.image || "/images/6.jpg"}
                   alt={course.title}
                   className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110"
                 />

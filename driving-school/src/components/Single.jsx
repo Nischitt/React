@@ -105,7 +105,7 @@ useEffect(() => {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-800/80 group bg-slate-900">
               <div className="absolute inset-0 bg-gradient-to-t from-[#070b19] via-transparent to-transparent z-10 opacity-60" />
               <img 
-                src="src/images/10.jpg" 
+                src="/images/10.jpg" 
                 alt="Driving Lesson" 
                 className="w-full object-cover aspect-video transform scale-100 group-hover:scale-[1.02] transition-transform duration-700" 
               />

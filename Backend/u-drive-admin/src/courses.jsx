@@ -29,7 +29,7 @@ export const CourseEdit = () => (
             <NumberInput source="startingPrice" />
             <NumberInput source="theoryHours" />
             <NumberInput source="practicalHours" />
-            <TextInput source="image" placeholder="src/images/6.jpg" fullWidth />
+            <TextInput source="image" placeholder="/images/6.jpg" fullWidth />
             <TextInput source="note" fullWidth />
         </SimpleForm>
     </Edit>
@@ -43,7 +43,7 @@ export const CourseCreate = () => (
             <NumberInput source="startingPrice" required />
             <NumberInput source="theoryHours" defaultValue={4} />
             <NumberInput source="practicalHours" defaultValue={18} />
-            <TextInput source="image" defaultValue="src/images/6.jpg" placeholder="src/images/6.jpg" fullWidth />
+            <TextInput source="image" defaultValue="/images/6.jpg" placeholder="/images/6.jpg" fullWidth />
             <TextInput source="note" defaultValue="Driving route will be charged separately." fullWidth />
         </SimpleForm>
     </Create>

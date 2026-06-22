@@ -60,7 +60,7 @@ export default function Home() {
           initial={{ scale: 1.15, opacity: 0 }}
           animate={{ scale: 1.05, opacity: 1 }}
           transition={{ duration: 1.2 }}
-          src="src/images/18.jpg"
+          src="/images/18.jpg"
           className="absolute inset-0 w-full h-full object-cover object-center"
           alt="uDrive Hero Background"
         />
@@ -127,10 +127,10 @@ export default function Home() {
             className="lg:col-span-6 grid grid-cols-12 gap-4 relative"
           >
             <div className="col-span-7 h-[380px] overflow-hidden rounded-sm shadow-md">
-              <img src="src/images/21.jpg" className="w-full h-full object-cover hover:scale-105 transition duration-500" alt="Latest Fleet Vehicle" />
+              <img src="/images/21.jpg" className="w-full h-full object-cover hover:scale-105 transition duration-500" alt="Latest Fleet Vehicle" />
             </div>
             <div className="col-span-5 h-[280px] self-end overflow-hidden rounded-sm shadow-lg border-4 border-white transform translate-y-8 -translate-x-4">
-              <img src="src/images/Driving.jpg" className="w-full h-full object-cover hover:scale-105 transition duration-500" alt="Instructor Profile" />
+              <img src="/images/Driving.jpg" className="w-full h-full object-cover hover:scale-105 transition duration-500" alt="Instructor Profile" />
             </div>
             
             <div className="absolute -bottom-6 left-6 bg-slate-950 text-white px-6 py-5 shadow-xl flex items-center gap-4 border-l-4 border-yellow-500">

@@ -37,7 +37,7 @@ export const BlogCreate = (props) => (
             {/* 💡 Include it here too so new posts can have pictures right away */}
             <TextInput 
                 source="image" 
-                label="Image Path / URL (e.g., src/images/5.jpg)" 
+                label="Image Path / URL (e.g., /images/5.jpg)" 
                 fullWidth 
             />
             

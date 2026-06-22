@@ -3,15 +3,15 @@ import React from "react";
 export default function Footer() {
   // Mock array for gallery images (replace src values with your actual assets)
   const galleryImages = [
-    "src/images/1.jpg",
-    "src/images/2.jpg",
-    "src/images/3.jpg",
-    "src/images/10.jpg",
-    "src/images/5.jpg",
-    "src/images/6.jpg",
-    "src/images/7.jpg",
-    "src/images/8.jpg",
-    "src/images/9.jpg",
+    "/images/1.jpg",
+    "/images/2.jpg",
+    "/images/3.jpg",
+    "/images/10.jpg",
+    "/images/5.jpg",
+    "/images/6.jpg",
+    "/images/7.jpg",
+    "/images/8.jpg",
+    "/images/9.jpg",
   ];
 
   return (

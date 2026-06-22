@@ -14,7 +14,7 @@ export default function Modrn() {
           <div className="lg:col-span-5">
             <div className="w-full aspect-[4/5] rounded-sm overflow-hidden shadow-lg">
               <img 
-                src="src/images/23.jpg" 
+                src="/images/23.jpg" 
                 alt="A perfect driving school with latest vehicles" 
                 className="w-full h-full object-cover"
               />
@@ -43,7 +43,7 @@ export default function Modrn() {
             {/* Signature & Founder Block */}
             <div className="flex items-center gap-4 border-t border-gray-100 pt-6">
               <div className="w-24 opacity-80">
-                <img src="src/images/17.jpg" alt="Signature" className="w-full object-contain" />
+                <img src="/images/17.jpg" alt="Signature" className="w-full object-contain" />
               </div>
               <div className="h-8 w-[1px] bg-gray-200" />
               <div>
@@ -61,7 +61,7 @@ export default function Modrn() {
           <div className="lg:col-span-3 flex flex-col items-start pl-4">
             <div className="relative w-full aspect-[4/5] bg-gray-50 rounded-bl-[80px] overflow-hidden border border-gray-100 shadow-sm">
               <img 
-                src="src/images/17.jpg" 
+                src="/images/17.jpg" 
                 alt="Isaac Herman Profile" 
                 className="w-full h-full object-cover"
               />
@@ -97,9 +97,9 @@ export default function Modrn() {
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
-              { title: "Student Course", desc: "Aenean at facilisis mauris. Praesent eget est vel mauris convallis porttitor.", img: "src/images/14.jpg", icon: "🚗" },
-              { title: "Student License", desc: "Duis fringilla nunc velit, scelerisque libero iaculis. Ut pulvinar pretium justo.", img: "src/images/15.jpg", icon: "🛡️" },
-              { title: "Road Safety Guide", desc: "Mauris vitae quam vitae neque come ravida. Vivamus libero tellus vitae.", img: "src/images/16.jpg", icon: "🏆" }
+              { title: "Student Course", desc: "Aenean at facilisis mauris. Praesent eget est vel mauris convallis porttitor.", img: "/images/14.jpg", icon: "🚗" },
+              { title: "Student License", desc: "Duis fringilla nunc velit, scelerisque libero iaculis. Ut pulvinar pretium justo.", img: "/images/15.jpg", icon: "🛡️" },
+              { title: "Road Safety Guide", desc: "Mauris vitae quam vitae neque come ravida. Vivamus libero tellus vitae.", img: "/images/16.jpg", icon: "🏆" }
             ].map((service, index) => (
               <div key={index} className="bg-neutral-800 rounded-xs overflow-hidden border border-neutral-700/30 flex flex-col justify-between">
                 <div className="relative h-48 bg-neutral-700">

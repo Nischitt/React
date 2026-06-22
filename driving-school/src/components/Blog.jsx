@@ -50,9 +50,9 @@ export default function Blog() {
   ];
 
   const recentPosts = [
-    { title: "Standard Driving Course Essentials", date: "12 June 2026", img: "src/images/6.jpg" },
-    { title: "Extended Course Route Guidelines", date: "08 June 2026", img: "src/images/7.jpg" },
-    { title: "Tips for Passing on First Attempt", date: "01 June 2026", img: "src/images/15.jpg" }
+    { title: "Standard Driving Course Essentials", date: "12 June 2026", img: "/images/6.jpg" },
+    { title: "Extended Course Route Guidelines", date: "08 June 2026", img: "/images/7.jpg" },
+    { title: "Tips for Passing on First Attempt", date: "01 June 2026", img: "/images/15.jpg" }
   ];
 
   return (
@@ -61,7 +61,7 @@ export default function Blog() {
       {/* 1. HERO BANNER HEADER */}
       <section className="relative h-[240px] bg-neutral-900 flex flex-col items-center justify-center overflow-hidden">
         <img 
-          src="src/images/contact-banner.jpg" 
+          src="/images/contact-banner.jpg" 
           alt="Blog banner background" 
           className="absolute inset-0 w-full h-full object-cover object-center opacity-30 mix-blend-luminosity"
         />
@@ -97,7 +97,7 @@ export default function Blog() {
                 <article key={post._id || post.id} className="group border-b border-gray-100 pb-12 last:border-0 last:pb-0">
                   <div className="relative w-full aspect-[16/9] bg-gray-100 rounded-xs overflow-hidden mb-6 border border-gray-100">
                     <img 
-                      src={post.image || "src/images/5.jpg"} 
+                      src={post.image || "/images/5.jpg"} 
                       alt={post.title} 
                       className="w-full h-full object-cover group-hover:scale-102 transition duration-500"
                     />

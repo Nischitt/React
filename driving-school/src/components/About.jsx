@@ -6,7 +6,7 @@ export default function About() {
     <div className="w-full bg-white font-sans antialiased text-gray-700">
         <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
   <img
-    src="src/images/hero.jpg"
+    src="/images/Hero.jpg"
     alt="About Banner"
     className="absolute inset-0 w-full h-full object-cover"
   />
@@ -36,7 +36,7 @@ export default function About() {
           <div className="lg:col-span-6 relative">
             <div className="w-full h-[750px] sm:aspect-square max-w-lg mx-auto overflow-hidden rounded-sm bg-gray-100 shadow-sm">
               <img 
-                src="src/images/2.jpg" 
+                src="/images/2.jpg" 
                 alt="Driving training session" 
                 className="w-full h-full object-cover"
               />
